@@ -2,7 +2,8 @@ FROM ubuntu:22.04
 RUN apt update -y && apt install wget -y
 RUN wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
 RUN tar xf ngrok-v3-stable-linux-amd64.tgz && rm ngrok-v3-stable-linux-amd64.tgz
-RUN ./ngrok config add-authtoken 
+ARG NGROK_AUTH_TOKEN
+RUN ./ngrok authtoken $NGROK_AUTH_TOKEN
 RUN useradd user
 RUN echo "user:123123" | chpasswd
 RUN apt install ssh openssh-server -y
